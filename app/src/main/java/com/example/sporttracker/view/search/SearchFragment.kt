@@ -27,6 +27,7 @@ import com.example.sporttracker.view.SportsMain
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_search.*
 
+
 class SearchFragment : DialogFragment() {
     //    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 //        val builder = AlertDialog.Builder(activity)
@@ -48,8 +49,14 @@ class SearchFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, android.R.style.Theme_Light_NoTitleBar_Fullscreen)
+        setStyle(STYLE_NO_FRAME, android.R.style.Theme_Light_NoTitleBar)
+    }
 
+    override fun onResume() {
+        super.onResume()
+        val width = resources.getDimensionPixelSize(R.dimen.frag_width)
+        val height = resources.getDimensionPixelSize(R.dimen.frag_height)
+        dialog!!.window!!.setLayout(width, height)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

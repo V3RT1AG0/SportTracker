@@ -10,7 +10,22 @@
         android:orientation="vertical">
 
         <TextView
+            android:textAlignment="center"
             android:id="@+id/event_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp" />
+
+        <TextView
+            android:textAlignment="center"
+            android:id="@+id/event_scores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp" />
+
+        <TextView
+            android:textAlignment="center"
+            android:id="@+id/event_league"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="2dp" />

@@ -8,7 +8,7 @@ data class Team(
     val team_name: String?,
     @SerializedName("idTeam")
     val team_id: Int?,
-    @SerializedName("strTeamLogo")
+    @SerializedName("strTeamBadge")
     val logo: String?,
     @SerializedName("strSport")
     val sport: String?

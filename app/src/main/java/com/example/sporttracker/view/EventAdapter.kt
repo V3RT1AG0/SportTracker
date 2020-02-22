@@ -40,16 +40,9 @@ class EventAdapter(var eventData: MutableList<Event>) :
 
 
         fun bind(event: Event) {
-            Log.d("manual",event.toString())
-            v.event_name.text = event.event_name
-//            v.anime_summary.text = anime.summary
-//            v.poster.loadImage(anime.image_url)
-//            v.setOnClickListener { v ->
-//                val intent = Intent(v.context, AnimeMain::class.java)
-//                intent.putExtra("anime", anime)
-//
-//                v.context.startActivity(intent)
-//            }
+            v.event_name.text = "${event.home_team} (${event.home_score}) vs ${event.away_team} (${event.away_score})"
+            v.event_scores.text = "${event.home_team} ${if (event.home_score > event.away_score)  "won" else "lost"}"
+            v.event_league.text = event.league_name
         }
     }
 

@@ -1,14 +1,13 @@
 package com.example.sporttracker.view.search;
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sporttracker.R
+import com.example.sporttracker.loadImage
 import com.example.sporttracker.model.Team
-import kotlinx.android.synthetic.main.event_cardview.view.*
 import kotlinx.android.synthetic.main.team_cardview.view.*
 
 
@@ -41,10 +40,9 @@ class SearchAdapter(var searchData: MutableList<Team>) :
 
 
         fun bind(team: Team) {
-            Log.d("manual",team.toString())
             v.teamName_name.text = team.team_name
-//            v.anime_summary.text = anime.summary
-//            v.poster.loadImage(anime.image_url)
+            v.sportName.text = team.sport
+            v.logo.loadImage(team.logo)
 //            v.setOnClickListener { v ->
 //                val intent = Intent(v.context, AnimeMain::class.java)
 //                intent.putExtra("anime", anime)

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 
 data class Event(
-    @SerializedName("strEvent")  //This annotation is for Retrofit
+    @SerializedName("strEvent")
     val event_name: String?,
     @SerializedName("intHomeScore")
     val home_score: String?,

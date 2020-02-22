@@ -10,6 +10,7 @@ import com.example.sporttracker.viewmodel.SportViewModel
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sporttracker.model.Event
+import com.example.sporttracker.view.search.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -27,8 +28,15 @@ class SportsMain : AppCompatActivity() {
             adapter = eventAdapter
         }
 
+        setUpSearchFragment()
         setObservers()
         sportViewModel.fetchEventHistoryfor(133612)
+    }
+
+    private fun setUpSearchFragment() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        val dialogFragment = SearchFragment()
+        dialogFragment.show(fragmentTransaction, "dialog")
     }
 
     private fun setObservers(){

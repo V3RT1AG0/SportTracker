@@ -7,6 +7,7 @@ import com.bumptech.glide.request.RequestOptions
 
 var sharedOptions = RequestOptions()
     .fitCenter()
+    .error(R.drawable.ic_medal)
 
 fun ImageView.loadImage(url:String?){
 

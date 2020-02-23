@@ -31,8 +31,10 @@ class SportsMain : AppCompatActivity(), SearchAdapter.TeamChangeListener {
             layoutManager = LinearLayoutManager(context)
             adapter = eventAdapter
         }
+        load_default()
         setObservers()
         setUpSearchFragment()
+
     }
 
     private fun setUpSearchFragment() {
@@ -46,9 +48,6 @@ class SportsMain : AppCompatActivity(), SearchAdapter.TeamChangeListener {
             events?.let {
                 eventAdapter.refresh(it)
                 recyclerView.visibility = View.VISIBLE
-                progressBar.visibility = View.GONE
-                error_view.visibility = View.GONE
-
             }
         })
 
@@ -71,6 +70,13 @@ class SportsMain : AppCompatActivity(), SearchAdapter.TeamChangeListener {
                 }
             }
         })
+    }
+
+    fun load_default() {
+        /*loading some default data initially for now.
+         Will be handled in shared prefrences in real app to retain user's selected team.*/
+        sportViewModel.fetchEventHistoryfor(133612)
+        poster.loadImage("https://www.thesportsdb.com/images/media/team/badge/xzqdr11517660252.png")
     }
 
     override fun updateTeam(id: Int?, poster_url: String?) {

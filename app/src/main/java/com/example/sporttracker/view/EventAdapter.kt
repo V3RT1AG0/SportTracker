@@ -1,7 +1,6 @@
 package com.example.sporttracker.view;
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import kotlinx.android.synthetic.main.event_cardview.view.*
 
 class EventAdapter(var eventData: MutableList<Event>) :
     RecyclerView.Adapter<EventAdapter.myViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): myViewHolder =
         myViewHolder(

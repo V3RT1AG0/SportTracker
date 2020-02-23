@@ -1,11 +1,11 @@
 package com.example.sporttracker.viewmodel
 
-
+/**Context in viewmodel, repsoitory, navigation component**/
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.showtracker.model.ApiService
 import com.example.sporttracker.model.Event
 import com.example.sporttracker.model.History
@@ -18,6 +18,7 @@ class SportViewModel(application: Application) : AndroidViewModel(application) {
     val events = MutableLiveData<List<Event>>()
     val loading = MutableLiveData<Boolean>()
     val error = MutableLiveData<Boolean>()
+    val saved_team_id = MutableLiveData<Int>()
     val disposable = CompositeDisposable()
 
     init {
@@ -30,16 +31,17 @@ class SportViewModel(application: Application) : AndroidViewModel(application) {
         disposable.clear()
     }
 
-    fun fetchEventHistoryfor(id:Int) {
+    fun fetchEventHistoryfor(id: Int) {
         loading.value = true
         fetchHistory(id)
     }
 
-    private fun fetchHistory(id:Int) {
+
+    private fun fetchHistory(id: Int) {
         disposable.add(ApiService.getSportsApi().getHistory(id)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object:DisposableSingleObserver<History>(){
+            .subscribeWith(object : DisposableSingleObserver<History>() {
                 override fun onSuccess(data: History) {
                     loading.value = false
                     error.value = false
@@ -47,11 +49,12 @@ class SportViewModel(application: Application) : AndroidViewModel(application) {
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.e("error",e.message)
+                    Log.e("error", e.message)
                     loading.value = false
                     error.value = true
                 }
-            }))
+            })
+        )
 
 
     }

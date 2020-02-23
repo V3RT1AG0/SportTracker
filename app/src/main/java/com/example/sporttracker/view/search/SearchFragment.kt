@@ -1,30 +1,21 @@
 package com.example.sporttracker.view.search
 
 
-import android.app.AlertDialog
-import android.app.Dialog
-import android.content.ContentValues.TAG
+
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
-import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sporttracker.R
-import com.example.sporttracker.model.Event
 import com.example.sporttracker.model.Team
-import com.example.sporttracker.view.EventAdapter
 import com.example.sporttracker.viewmodel.SearchFragementViewModel
-import com.example.sporttracker.viewmodel.SportViewModel
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.sporttracker.view.SportsMain
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_search.*
 
 
@@ -37,7 +28,7 @@ class SearchFragment : DialogFragment() {
 //    }
     lateinit var searchViewModel: SearchFragementViewModel
     private val teamsList = mutableListOf<Team>()
-    private val searchAdapter = SearchAdapter(teamsList)
+    lateinit var searchAdapter: SearchAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +52,7 @@ class SearchFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        searchAdapter = SearchAdapter(teamsList,activity as SportsMain)
 
         searchViewModel = ViewModelProviders.of(this).get(SearchFragementViewModel::class.java)
         searchrecyclerView.apply {

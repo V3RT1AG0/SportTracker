@@ -11,9 +11,13 @@ import com.example.sporttracker.model.Team
 import kotlinx.android.synthetic.main.team_cardview.view.*
 
 
-class SearchAdapter(var searchData: MutableList<Team>) :
+class SearchAdapter(var searchData: MutableList<Team>,var teamChangeListener: TeamChangeListener) :
     RecyclerView.Adapter<SearchAdapter.myViewHolder>() {
 
+
+    interface TeamChangeListener {
+        fun updateTeam(id: Int?,poster_url:String?)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): myViewHolder =
         myViewHolder(
@@ -36,19 +40,17 @@ class SearchAdapter(var searchData: MutableList<Team>) :
         notifyDataSetChanged()
     }
 
-    class myViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
+    inner class myViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
 
 
         fun bind(team: Team) {
             v.teamName_name.text = team.team_name
             v.sportName.text = team.sport
             v.logo.loadImage(team.logo)
-//            v.setOnClickListener { v ->
-//                val intent = Intent(v.context, AnimeMain::class.java)
-//                intent.putExtra("anime", anime)
-//
-//                v.context.startActivity(intent)
-//            }
+            v.setOnClickListener {
+                teamChangeListener.updateTeam(team.team_id,team.logo)
+            }
+
         }
     }
 

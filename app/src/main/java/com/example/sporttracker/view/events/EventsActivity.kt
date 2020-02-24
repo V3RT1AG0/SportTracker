@@ -13,14 +13,22 @@ import com.example.sporttracker.model.Event
 import com.example.sporttracker.view.search.SearchAdapter
 import com.example.sporttracker.view.search.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import android.content.Intent
+import android.net.Uri
+import android.view.Menu
+import android.view.MenuItem
 
 
-class EventsActivity : AppCompatActivity(), SearchAdapter.TeamChangeListener {
+class EventsActivity : AppCompatActivity(), SearchAdapter.TeamChangeListener, View.OnClickListener {
+
 
     lateinit var sportViewModel: SportViewModel
     var dialogFragment = SearchFragment()
     private val mylist = mutableListOf<Event>()
     private val eventAdapter = EventAdapter(mylist)
+    var facebook_url: String? = ""
+    var instagram_url: String? = ""
+    var twitter_url: String? = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,19 +42,35 @@ class EventsActivity : AppCompatActivity(), SearchAdapter.TeamChangeListener {
         load_default()
         setObservers()
         setUpSearchFragment()
+        setListeners()
+    }
 
+    private fun setListeners() {
+        facebook.setOnClickListener(this)
+        twitter.setOnClickListener(this)
+        instagram.setOnClickListener(this)
     }
 
     private fun setUpSearchFragment() {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-//        val dialogFragment = SearchFragment()
         dialogFragment.show(fragmentTransaction, "dialog")
     }
 
     private fun setObservers() {
-        sportViewModel.events.observe(this, Observer { events ->
+        sportViewModel.teamDetails.observe(this, Observer { events ->
             events?.let {
-                eventAdapter.refresh(it)
+                eventAdapter.refresh(it.events)
+                val team = it.team
+                t_name.text = "${team.team_name} (${team.alternate})"
+                facebook.visibility =
+                    if (!team.facebook.isNullOrEmpty()) View.VISIBLE else View.GONE
+                twitter.visibility = if (!team.twitter.isNullOrEmpty()) View.VISIBLE else View.GONE
+                instagram.visibility =
+                    if (!team.instagram.isNullOrEmpty()) View.VISIBLE else View.GONE
+                facebook_url = team.facebook
+                twitter_url = team.twitter
+                instagram_url = team.instagram
+                poster.loadImage(team.logo)
                 recyclerView.visibility = View.VISIBLE
             }
         })
@@ -73,8 +97,7 @@ class EventsActivity : AppCompatActivity(), SearchAdapter.TeamChangeListener {
     }
 
     fun load_default() {
-        /*loading some default data initially for now.
-         Will be handled in shared prefrences in real app to retain user's selected team.*/
+        /*TODO loading some default data initially for now. Will be handled in shared preferences in real app to retain user's selected team.*/
         sportViewModel.fetchEventHistoryfor(133612)
         poster.loadImage("https://www.thesportsdb.com/images/media/team/badge/xzqdr11517660252.png")
     }
@@ -83,7 +106,47 @@ class EventsActivity : AppCompatActivity(), SearchAdapter.TeamChangeListener {
         id?.let {
             sportViewModel.fetchEventHistoryfor(it)
         }
-        poster.loadImage(poster_url)
         dialogFragment.dismiss()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_item -> {
+                setUpSearchFragment()
+                return true
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    override fun onClick(view: View?) {
+        when (view!!.id) {
+            R.id.facebook -> startActivity(
+                Intent(
+                    Intent.ACTION_VIEW, Uri.parse("https://" + facebook_url)
+                )
+            )
+            R.id.twitter -> startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://" + twitter_url)
+                )
+            )
+            R.id.instagram -> {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://" + instagram_url)
+                    )
+                )
+            }
+        }
     }
 }

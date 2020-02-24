@@ -38,8 +38,10 @@ class EventAdapter(var eventData: MutableList<Event>) :
 
 
         fun bind(event: Event) {
-            v.event_name.text = "${event.home_team} (${event.home_score}) vs ${event.away_team} (${event.away_score})"
-            v.event_scores.text = "${event.home_team} ${if (event.home_score > event.away_score)  "won" else "lost"}"
+            v.event_name.text =
+                "${event.home_team} (${event.home_score}) vs ${event.away_team} (${event.away_score})"
+            v.event_scores.text =
+                "${if (event.home_score > event.away_score) event.home_team else event.away_team} won"
             v.event_league.text = event.league_name
         }
     }

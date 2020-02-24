@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SportTracker</string>
+    <string name="change_team">Change Team</string>
     <string name="an_error_has_occoured">Error fetching data</string>
 </resources>

@@ -5,10 +5,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.showtracker.model.ApiService
-import com.example.sporttracker.model.Event
-import com.example.sporttracker.model.History
 import com.example.sporttracker.model.Team
 import com.example.sporttracker.model.Teams
 import io.reactivex.android.schedulers.AndroidSchedulers

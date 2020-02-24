@@ -29,6 +29,6 @@ data class Event(
 
 data class History(
     @SerializedName("results")
-    val events: List<Event>
+    val events: List<Event>?
 )
 

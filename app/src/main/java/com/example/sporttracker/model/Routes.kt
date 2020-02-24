@@ -13,4 +13,7 @@ interface Routes {
 
     @GET("searchteams.php")
     fun getTeams(@Query("t") query:String): Single<Teams>
+
+    @GET("lookupteam.php")
+    fun getTeamDetails(@Query("id") id:Int): Single<Teams>
 }

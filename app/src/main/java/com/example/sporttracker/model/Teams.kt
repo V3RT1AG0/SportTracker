@@ -11,7 +11,17 @@ data class Team(
     @SerializedName("strTeamBadge")
     val logo: String?,
     @SerializedName("strSport")
-    val sport: String?
+    val sport: String?,
+    @SerializedName("strFacebook")
+    val facebook: String?,
+    @SerializedName("strTwitter")
+    val twitter: String?,
+    @SerializedName("strInstagram")
+    val instagram: String?,
+    @SerializedName("strAlternate")
+    val alternate: String?
+
+
 )
 
 data class Teams(

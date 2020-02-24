@@ -27,12 +27,7 @@ import android.widget.EditText
 
 
 class SearchFragment : DialogFragment() {
-    //    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//        val builder = AlertDialog.Builder(activity)
-//        builder.setPositiveButton("Cool") { dialog, which -> dismiss() }
-//        builder.setNegativeButton("Cancel") { dialog, which -> dismiss() }
-//        return builder.create()
-//    }
+
     lateinit var searchViewModel: SearchFragementViewModel
     private val teamsList = mutableListOf<Team>()
     lateinit var searchAdapter: SearchAdapter
@@ -62,13 +57,6 @@ class SearchFragment : DialogFragment() {
 
     }
 
-
-
-//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//        val dialog = super.onCreateDialog(savedInstanceState)
-//        dialog.window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-//        return dialog;
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

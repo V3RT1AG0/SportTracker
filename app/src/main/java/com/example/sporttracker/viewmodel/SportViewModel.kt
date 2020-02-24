@@ -1,25 +1,28 @@
 package com.example.sporttracker.viewmodel
 
-/**Context in viewmodel, repsoitory, navigation component**/
+
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.showtracker.model.ApiService
 import com.example.sporttracker.model.Event
 import com.example.sporttracker.model.History
+import com.example.sporttracker.model.Team
+import com.example.sporttracker.model.Teams
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
+
 class SportViewModel(application: Application) : AndroidViewModel(application) {
-    val events = MutableLiveData<List<Event>>()
     val loading = MutableLiveData<Boolean>()
     val error = MutableLiveData<Boolean>()
-    val saved_team_id = MutableLiveData<Int>()
     val disposable = CompositeDisposable()
+    val teamDetails = MutableLiveData<TeamDetails>()
 
     init {
         loading.value = true
@@ -36,25 +39,53 @@ class SportViewModel(application: Application) : AndroidViewModel(application) {
         fetchHistory(id)
     }
 
+    data class TeamDetails(
+        var team:Team,
+        var events:List<Event>
+    )
+
 
     private fun fetchHistory(id: Int) {
-        disposable.add(ApiService.getSportsApi().getHistory(id)
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableSingleObserver<History>() {
-                override fun onSuccess(data: History) {
-                    loading.value = false
-                    error.value = false
-                    events.value = data.events
+        disposable.add(
+            Single.zip(
+                ApiService.getSportsApi().getHistory(id),
+                ApiService.getSportsApi().getTeamDetails(id),
+                BiFunction<History,Teams, TeamDetails> { history,teams->
+                    TeamDetails(teams.teams[0], history.events ?: emptyList())
                 }
+            ).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<TeamDetails>() {
+                    override fun onSuccess(t: TeamDetails) {
+                        loading.value = false
+                        teamDetails.value = t
+                    }
 
-                override fun onError(e: Throwable) {
-                    Log.e("error", e.message)
-                    loading.value = false
-                    error.value = true
-                }
-            })
-        )
+                    override fun onError(e: Throwable) {
+                        error.value = true
+                        Log.e("Error",e.message)
+                    }
+
+                }))
+
+
+//        disposable.add(ApiService.getSportsApi().getHistory(id)
+//            .subscribeOn(Schedulers.newThread())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribeWith(object : DisposableSingleObserver<History>() {
+//                override fun onSuccess(data: History) {
+//                    loading.value = false
+//                    error.value = false
+//                    events.value = data.events
+//                }
+//
+//                override fun onError(e: Throwable) {
+//                    Log.e("error", e.message)
+//                    loading.value = false
+//                    error.value = true
+//                }
+//            })
+//        )
 
 
     }

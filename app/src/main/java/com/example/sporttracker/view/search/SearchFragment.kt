@@ -2,7 +2,6 @@ package com.example.sporttracker.view.search
 
 
 
-import android.app.Dialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,7 +16,7 @@ import com.example.sporttracker.model.Team
 import com.example.sporttracker.viewmodel.SearchFragementViewModel
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.sporttracker.view.SportsMain
+import com.example.sporttracker.view.events.EventsActivity
 import kotlinx.android.synthetic.main.fragment_search.*
 import android.os.Handler
 
@@ -74,7 +73,7 @@ class SearchFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchAdapter = SearchAdapter(teamsList,activity as SportsMain)
+        searchAdapter = SearchAdapter(teamsList,activity as EventsActivity)
         searchViewModel = ViewModelProviders.of(this).get(SearchFragementViewModel::class.java)
         searchrecyclerView.apply {
             layoutManager = LinearLayoutManager(context)

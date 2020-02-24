@@ -1,4 +1,4 @@
-package com.example.sporttracker.view
+package com.example.sporttracker.view.events
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,7 +15,7 @@ import com.example.sporttracker.view.search.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class SportsMain : AppCompatActivity(), SearchAdapter.TeamChangeListener {
+class EventsActivity : AppCompatActivity(), SearchAdapter.TeamChangeListener {
 
     lateinit var sportViewModel: SportViewModel
     var dialogFragment = SearchFragment()

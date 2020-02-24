@@ -1,4 +1,4 @@
-package com.example.sporttracker.view;
+package com.example.sporttracker.view.events;
 
 
 import android.view.LayoutInflater

@@ -1,11 +1,13 @@
-package com.example.showtracker.model
+package com.example.sporttracker.model
 
-import com.example.sporttracker.model.History
-import com.example.sporttracker.model.Teams
 import io.reactivex.Single
 import retrofit2.http.GET
 
 import retrofit2.http.Query
+
+
+//@GET("users/{user}/repos")
+//fun listRepos(@Path("user") user: String): Call<List<Repo>>
 
 interface Routes {
     @GET("eventslast.php")

@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.events.EventsActivity">
 
-<!--    <include layout="@layout/custom_toolbar"/>-->
-
-
     <LinearLayout
         android:id="@+id/posterLL"
         android:layout_width="match_parent"

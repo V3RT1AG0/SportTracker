@@ -1,4 +1,4 @@
-package com.example.showtracker.model
+package com.example.sporttracker.model
 
 
 import retrofit2.Retrofit

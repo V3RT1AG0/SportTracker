@@ -5,7 +5,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.showtracker.model.ApiService
+import com.example.sporttracker.model.ApiService
 import com.example.sporttracker.model.Team
 import com.example.sporttracker.model.Teams
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,7 +35,8 @@ class SearchFragementViewModel(application: Application) : AndroidViewModel(appl
     }
 
     private fun fetchTeams(query:String) {
-        disposable.add(ApiService.getSportsApi().getTeams(query)
+        disposable.add(
+            ApiService.getSportsApi().getTeams(query)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object:DisposableSingleObserver<Teams>(){
@@ -56,3 +57,12 @@ class SearchFragementViewModel(application: Application) : AndroidViewModel(appl
 
     }
 }
+
+
+
+
+
+
+
+
+//subscribe method does not return anything. its void. Hence subscribeWith is used

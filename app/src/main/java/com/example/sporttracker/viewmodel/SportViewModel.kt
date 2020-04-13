@@ -5,7 +5,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.showtracker.model.ApiService
+import com.example.sporttracker.model.ApiService
 import com.example.sporttracker.model.Event
 import com.example.sporttracker.model.History
 import com.example.sporttracker.model.Team
@@ -59,6 +59,7 @@ class SportViewModel(application: Application) : AndroidViewModel(application) {
                     override fun onSuccess(t: TeamDetails) {
                         loading.value = false
                         teamDetails.value = t
+                        Log.d("Hello",Thread.currentThread().name)
                     }
 
                     override fun onError(e: Throwable) {
@@ -67,26 +68,6 @@ class SportViewModel(application: Application) : AndroidViewModel(application) {
                     }
 
                 }))
-
-
-//        disposable.add(ApiService.getSportsApi().getHistory(id)
-//            .subscribeOn(Schedulers.newThread())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribeWith(object : DisposableSingleObserver<History>() {
-//                override fun onSuccess(data: History) {
-//                    loading.value = false
-//                    error.value = false
-//                    events.value = data.events
-//                }
-//
-//                override fun onError(e: Throwable) {
-//                    Log.e("error", e.message)
-//                    loading.value = false
-//                    error.value = true
-//                }
-//            })
-//        )
-
 
     }
 }
